@@ -4,7 +4,7 @@
       :topic-title="activeTopic && activeTopic.title"
       :text="activeTopic && activeTopic.fullText"
     ></active-element>
-    <knowledge-base :topics="topics" @select-topic="activateTopic"></knowledge-base>
+    <knowledge-base @select-topic="activateTopic"></knowledge-base>
   </div>
 </template>
 
@@ -32,10 +32,24 @@ export default {
       activeTopic: null,
     };
   },
+  // provide: { topics: [] }, // object로 넘길경우 동기화안됨
+  provide() {
+    return { topics: this.topics };
+  },
   methods: {
     activateTopic(topicId) {
       this.activeTopic = this.topics.find((topic) => topic.id === topicId);
     },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.topics.push({
+        id: 'events',
+        title: 'events',
+        description: 'esfef',
+        fullText: 'dsfsdf',
+      });
+    }, 3000);
   },
 };
 </script>
