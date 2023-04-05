@@ -45,6 +45,7 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      deleteResource: this.removeResource,
     };
   },
   computed: {
@@ -68,6 +69,14 @@ export default {
       };
       this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
+    },
+    removeResource(resId) {
+      // 아래 소스가 적용안되는이유: 새로운 배열을 등록하면서 기존 data에 있던 값과 다른 포인트주소를가짐
+      // this.storedResources = this.storedResources.filter((res) => res.id !== resId);
+      const resIndex = this.storedResources.findIndex(
+        (res) => res.id === resId
+      );
+      this.storedResources.splice(resIndex, 1);
     },
   },
 };
