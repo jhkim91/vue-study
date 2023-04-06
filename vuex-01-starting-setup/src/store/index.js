@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import rootMutations from './mutations';
 import rootActions from './actions';
 import rootGetters from './getters';
-import counterModule from './counter';
+import counterModule from './modules/counter';
 
 const store = createStore({
   modules: {
