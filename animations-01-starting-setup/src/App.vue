@@ -1,4 +1,14 @@
 <template>
+  <router-view v-slot="slotProps">
+    <!-- 
+      mode option: [in-out, out-in]
+      out-in: 나타나는 컴포넌트보다 사라지는 컴포넌트에 애니메이션이 먼저 적용
+    -->
+    <transition name="fade-button" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
+
   <div class="container">
     <users-list></users-list>
   </div>
@@ -34,10 +44,7 @@
 </template>
 
 <script>
-import UsersList from './components/UsersList.vue';
-
 export default {
-  components: { UsersList },
   data() {
     return {
       animatedBlock: false,
@@ -158,6 +165,24 @@ button:active {
 .animate {
   /* transform: translateX(-150px); */
   animation: slide-scale 0.3s ease-out forwards;
+}
+
+.fade-button-enter-from,
+.fade-button-leave-to {
+  opacity: 0;
+}
+
+.fade-button-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-button-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fade-button-enter-to,
+.fade-button-leave-from {
+  opacity: 1;
 }
 
 @keyframes slide-scale {
