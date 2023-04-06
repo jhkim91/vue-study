@@ -56,10 +56,15 @@ li {
 }
 .user-list-leave-active {
   transition: all 1s ease-in;
+  position: absolute;
 }
 
 .user-list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+/* 추가 또는 삭제되지 않는 다른 요소 모두 적용될 특수 css */
+.user-list-move {
+  transition: transform 0.8s ease;
 }
 </style>
