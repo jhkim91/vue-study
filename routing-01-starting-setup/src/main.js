@@ -14,7 +14,7 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: '/teams' },
     {
-      name: 'teams', path: '/teams', components: { default: TeamsList, footer: TeamsFooter }, children: [
+      name: 'teams', path: '/teams', meta: { needsAuth: true }, components: { default: TeamsList, footer: TeamsFooter }, children: [
         { name: 'team-members', path: ':teamId', component: TeamMembers, props: true }, // /teams/:teamId
       ]
     }, // , alias: '/'
@@ -44,6 +44,13 @@ router.beforeEach(function (to, from, next) {
   console.log('Global beforeEach')
   console.log(to, from)
   next(); // 이동안할시 next(flase)
+
+  if (to.meta.needsAuth) {
+    console.log('Needs auth!')
+    next();
+  } else {
+    next();
+  }
 
   // if (to.name === 'team-members') {
   //   next();
