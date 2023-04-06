@@ -5,8 +5,9 @@
   </div>
   <div class="container">
     <!-- <transition enter-to-class="some-class" enter-active-class="..."> -->
+    <!-- :css="false" - style을 script로만 만들경우 css에서 찾지 않도록 false 처리 -->
     <transition
-      name="para"
+      :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
