@@ -21,7 +21,16 @@ const router = createRouter({
     { path: '/users', components: { default: UsersList, footer: UsersFooter } },
     { path: '/:notFound(.*)', component: NotFound }//redirect: '/teams' 
   ],
-  // linkActiveClass: 'active' // active class name 변경
+  // linkActiveClass: 'active', // active class name 변경
+  scrollBehavior(to, from, savedPosition) {
+    console.log(to, from, savedPosition)
+    if (savedPosition) {
+      return {
+        left: savedPosition.left, top: savedPosition.top,
+      }
+    }
+    return { left: 0, top: 0 }
+  } // 페이지 변경될떄마다 호출
 });
 const app = createApp(App);
 app.use(router); // 서드 파티 패키지와 다른 기능을 연결해주는 역할
