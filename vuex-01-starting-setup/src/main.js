@@ -14,7 +14,6 @@ const store = createStore({
       state.counter = state.counter + 2
     },
     increase(state, payload) {
-      console.log('payload', payload)
       state.counter = state.counter + payload.value;
     }
   },
