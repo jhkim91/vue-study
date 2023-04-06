@@ -43,6 +43,7 @@ export default {
   created() {
     // 모든 데이터가 사용 가능 상태이며, 화면에 표시 되기전 호출
     this.loadTeamMembers(this.teamId);
+    console.log(this.$route.query);
   },
   watch: {
     teamId(newId) {
