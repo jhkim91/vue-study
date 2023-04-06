@@ -37,7 +37,7 @@ export default {
       // this.$store.commit('increase', {value: 1});
       // this.$store.commit({ type: 'increase', value: 10 });
       this.$store.dispatch({
-        type: 'increase',
+        type: 'numbers/increase',
         value: 10,
       });
     },

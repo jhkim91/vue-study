@@ -11,9 +11,9 @@ export default {
   methods: {
     addOne() {
       // this.$store.commit('increment');
-      this.$store.dispatch('increment');
+      this.$store.dispatch('numbers/increment');
     },
-    ...mapActions(['increment', 'increase']),
+    ...mapActions('numbers', ['increment', 'increase']),
   },
 };
 </script>

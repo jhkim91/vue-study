@@ -11,9 +11,9 @@ export default {
     counter() {
       // return this.$store.state.counter;
       // return this.$store.getters.finalCounter;
-      return this.$store.getters.normalizedCounter;
+      return this.$store.getters['numbers/normalizedCounter'];
     },
-    ...mapGetters(['finalCounter', 'normalizedCounter']),
+    ...mapGetters('numbers', ['finalCounter', 'normalizedCounter']),
   },
 };
 </script>
