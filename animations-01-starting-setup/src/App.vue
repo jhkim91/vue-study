@@ -13,6 +13,8 @@
       @before-leave="beforeLeave"
       @leave="leave"
       @after-leave="afterLeave"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled"
     >
       <p v-if="paraisVisible">This is only sometimes visible...</p>
     </transition>
@@ -34,14 +36,34 @@ export default {
       animatedBlock: false,
       dialogIsVisible: false,
       paraisVisible: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
+    enterCancelled(el) {
+      console.log('enterCancelled', el);
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled(el) {
+      console.log('leaveCancelled', el);
+      clearInterval(this.leaveInterval);
+    },
     beforeEnter(el) {
       console.log('beforeEnter', el);
+      el.style.opacity = 0;
     },
-    enter(el) {
+    enter(el, done) {
       console.log('enter', el);
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done(); // 지정안할경우 동작이 언제 끝나는지 모르기에 afterEnter 바로 실행됨
+        }
+      }, 20);
     },
     afterEnter(el) {
       // animation이 다 끝나면 호출
@@ -49,9 +71,20 @@ export default {
     },
     beforeLeave(el) {
       console.log('beforeLeave', el);
+      el.style.opacity = 1;
     },
-    leave(el) {
+    leave(el, done) {
       console.log('leave', el);
+      console.log('enter', el);
+      let round = 1;
+      this.leaveInterval = setInterval(() => {
+        el.style.opacity = 1 - round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.leaveInterval);
+          done(); // 지정안할경우 동작이 언제 끝나는지 모르기에 afterEnter 바로 실행됨
+        }
+      }, 20);
     },
     afterLeave(el) {
       // animation이 다 끝나면 호출
@@ -118,37 +151,6 @@ button:active {
 .animate {
   /* transform: translateX(-150px); */
   animation: slide-scale 0.3s ease-out forwards;
-}
-
-.para-enter-from {
-  /* v 자리에 name값으로 치환 v->para */
-  /* opacity: 0;
-  transform: translateY(-30px); */
-}
-
-.para-enter-active {
-  /* transition: all 0.3s ease-out; */
-  animation: slide-scale 0.3s ease-out;
-}
-
-.para-enter-to {
-  /* opacity: 1;
-  transform: translateY(0); */
-}
-
-.para-leave-froㅜm {
-  /* opacity: 1;
-  transform: translateY(0); */
-}
-
-.para-leave-active {
-  /* transition: all 0.3s ease-in; */
-  animation: slide-scale 0.3s ease-out reverse;
-}
-
-.para-leave-to {
-  /* opacity: 0;
-  transform: translateY(30px); */
 }
 
 @keyframes slide-scale {
