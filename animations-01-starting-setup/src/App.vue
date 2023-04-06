@@ -5,7 +5,15 @@
   </div>
   <div class="container">
     <!-- <transition enter-to-class="some-class" enter-active-class="..."> -->
-    <transition name="para">
+    <transition
+      name="para"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
       <p v-if="paraisVisible">This is only sometimes visible...</p>
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
@@ -29,6 +37,26 @@ export default {
     };
   },
   methods: {
+    beforeEnter(el) {
+      console.log('beforeEnter', el);
+    },
+    enter(el) {
+      console.log('enter', el);
+    },
+    afterEnter(el) {
+      // animation이 다 끝나면 호출
+      console.log('afterEnter', el);
+    },
+    beforeLeave(el) {
+      console.log('beforeLeave', el);
+    },
+    leave(el) {
+      console.log('leave', el);
+    },
+    afterLeave(el) {
+      // animation이 다 끝나면 호출
+      console.log('afterLeave', el);
+    },
     animateBlock() {
       this.animatedBlock = true;
     },
@@ -108,7 +136,7 @@ button:active {
   transform: translateY(0); */
 }
 
-.para-leave-from {
+.para-leave-froㅜm {
   /* opacity: 1;
   transform: translateY(0); */
 }
