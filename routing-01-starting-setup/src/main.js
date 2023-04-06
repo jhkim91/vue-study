@@ -18,7 +18,14 @@ const router = createRouter({
         { name: 'team-members', path: ':teamId', component: TeamMembers, props: true }, // /teams/:teamId
       ]
     }, // , alias: '/'
-    { path: '/users', components: { default: UsersList, footer: UsersFooter } },
+    {
+      path: '/users', components: { default: UsersList, footer: UsersFooter },
+      beforeEnter(to, from, next) {
+        console.log('users beforeEnter');
+        console.log(to, from)
+        next();
+      }
+    },
     { path: '/:notFound(.*)', component: NotFound }//redirect: '/teams' 
   ],
   // linkActiveClass: 'active', // active class name 변경
@@ -32,6 +39,25 @@ const router = createRouter({
     return { left: 0, top: 0 }
   } // 페이지 변경될떄마다 호출
 });
+
+router.beforeEach(function (to, from, next) {
+  console.log('Global beforeEach')
+  console.log(to, from)
+  next(); // 이동안할시 next(flase)
+
+  // if (to.name === 'team-members') {
+  //   next();
+  // } else {
+  //   next({ name: 'team-members', params: { teamId: 't2' } })
+  // }
+})
+
+router.afterEach(function (to, from) {
+  // sending analytics data
+  console.log('Global afterEach')
+  console.log(to, from);
+})
+
 const app = createApp(App);
 app.use(router); // 서드 파티 패키지와 다른 기능을 연결해주는 역할
 
