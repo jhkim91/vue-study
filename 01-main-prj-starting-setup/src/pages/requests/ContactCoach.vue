@@ -1,3 +1,1 @@
-<template>
-  <section>ContactCoach</section>
-</template>
+<template>CONTACT A COACH</template>
