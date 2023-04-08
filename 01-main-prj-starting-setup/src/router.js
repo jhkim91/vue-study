@@ -7,7 +7,7 @@ import ContactCoach from './pages/requests/ContactCoach.vue'
 import RequestsReceived from './pages/requests/RequestsReceived.vue'
 import UserAuth from './pages/auth/UserAuth.vue'
 import NotFound from './pages/NotFound.vue'
-import store from './store/index.js'
+import store from './store/index.js' // router 에서 store 값 참조
 
 const router = createRouter({
   history: createWebHistory(),
