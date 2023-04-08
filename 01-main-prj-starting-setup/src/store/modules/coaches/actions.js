@@ -28,7 +28,8 @@ export default {
     if (!payload.forceRefresh && !context.getters.shouldUpdate) {
       return;
     }
-    const response = await fetch(`https://vue-http-demo-c7ff4-default-rtdb.firebaseio.com/coaches.json`);
+    const token = context.rootGetters.token;
+    const response = await fetch(`https://vue-http-demo-c7ff4-default-rtdb.firebaseio.com/coaches.json?auth=${token}`);
     const responseData = await response.json();
 
     if (!response.ok) {
