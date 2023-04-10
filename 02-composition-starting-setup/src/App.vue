@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { ref, reactive, toRefs, isRef, isReactive, computed } from 'vue';
+import { ref, reactive, toRefs, isRef, isReactive, computed, watch } from 'vue';
 
 export default {
   setup() {
@@ -36,6 +36,16 @@ export default {
     console.log(isRef(firstName));
     console.log(isReactive(user));
 
+    const uAge = ref(31);
+    watch(uAge, function (newValue, oldValue) {
+      console.log('Old age: ' + oldValue);
+      console.log('New age: ' + newValue);
+    });
+    // watch([uAge, uName], function (newValues, oldValues) {
+    //   console.log('Old age: ' + oldValues[0]);
+    //   console.log('New age: ' + newValues[0]);
+    // });
+
     setTimeout(() => {
       user.name = 'Max';
       user.age = 32;
@@ -45,7 +55,8 @@ export default {
       return firstName.value + ' ' + lastName.value;
     });
     function setNewAge() {
-      user.age = 33;
+      // user.age = 33;
+      uAge.value = 33;
     }
     function setFirstName(event) {
       firstName.value = event.target.value;
