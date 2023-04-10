@@ -1,8 +1,13 @@
 <template>
   <section class="container">
-    <h2>{{ userRefs.name }}</h2>
+    <user-data
+      :first-name="firstName"
+      :last-name="lastName"
+      :age="age"
+    ></user-data>
+    <!-- <h2>{{ userRefs.name }}</h2>
     <h2>{{ uName }}</h2>
-    <h3>{{ user.age }}</h3>
+    <h3>{{ user.age }}</h3> -->
     <button @click="setAge">Change Age</button>
     <div>
       <!-- <input type="text" placeholder="First Name" @input="setFirstName" />
@@ -16,9 +21,20 @@
 </template>
 
 <script>
-import { ref, reactive, toRefs, isRef, isReactive, computed, watch } from 'vue';
+import {
+  ref,
+  reactive,
+  toRefs,
+  isRef,
+  isReactive,
+  computed,
+  watch,
+  provide,
+} from 'vue';
+import UserData from './components/UserData.vue';
 
 export default {
+  components: { UserData },
   setup() {
     // ref 사용시 반응형 값이 됨
     const firstName = ref('');
@@ -39,6 +55,7 @@ export default {
     console.log(isReactive(user));
 
     const uAge = ref(31);
+    provide('userAge', uAge);
     watch(uAge, function (newValue, oldValue) {
       console.log('Old age: ' + oldValue);
       console.log('New age: ' + newValue);
