@@ -1,19 +1,26 @@
 <template>
   <section class="container">
     <h2>{{ userRefs.name }}</h2>
+    <h2>{{ uName }}</h2>
     <h3>{{ user.age }}</h3>
-    <button @click="setAge">setAge</button>
+    <button @click="setAge">Change Age</button>
+    <div>
+      <input type="text" placeholder="First Name" @input="setFirstName" />
+      <input type="text" placeholder="last Name" @input="setLastName" />
+    </div>
   </section>
 </template>
 
 <script>
-import { ref, reactive, toRefs, isRef, isReactive } from 'vue';
+import { ref, reactive, toRefs, isRef, isReactive, computed } from 'vue';
 
 export default {
   setup() {
     // ref 사용시 반응형 값이 됨
+    const firstName = ref('');
+    const lastName = ref('');
 
-    const uName = ref('Maximilian');
+    // const uName = ref('Maximilian');
     // => uName.value 로 수정, 요소에서 사용시 uName으로 사용
 
     // object 사용시 object를 넘겨야함 이유: 요소에서 user.value.name 값은 ref에서 추출한 값이기때문
@@ -24,7 +31,7 @@ export default {
     // reactive 내부값을 모두 ref 치환
     const userRefs = toRefs(user);
 
-    console.log(isRef(uName));
+    console.log(isRef(firstName));
     console.log(isReactive(user));
 
     setTimeout(() => {
@@ -32,17 +39,27 @@ export default {
       user.age = 32;
     }, 2000);
 
+    const uName = computed(function () {
+      return firstName.value + ' ' + lastName.value;
+    });
     function setNewAge() {
       user.age = 33;
+    }
+    function setFirstName(event) {
+      firstName.value = event.target.value;
+    }
+    function setLastName(event) {
+      lastName.value = event.target.value;
     }
 
     return {
       uName,
-      userName: user.name,
       age: user.age,
       user: user,
       userRefs,
       setAge: setNewAge,
+      setFirstName,
+      setLastName,
     };
   },
   // data() {
