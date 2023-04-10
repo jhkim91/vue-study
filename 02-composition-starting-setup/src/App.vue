@@ -2,6 +2,7 @@
   <section class="container">
     <h2>{{ userRefs.name }}</h2>
     <h3>{{ user.age }}</h3>
+    <button @click="setAge">setAge</button>
   </section>
 </template>
 
@@ -31,12 +32,17 @@ export default {
       user.age = 32;
     }, 2000);
 
+    function setNewAge() {
+      user.age = 33;
+    }
+
     return {
       uName,
       userName: user.name,
       age: user.age,
       user: user,
       userRefs,
+      setAge: setNewAge,
     };
   },
   // data() {
