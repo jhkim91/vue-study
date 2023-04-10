@@ -8,7 +8,9 @@
       <!-- <input type="text" placeholder="First Name" @input="setFirstName" />
       <input type="text" placeholder="last Name" @input="setLastName" /> -->
       <input type="text" placeholder="First Name" v-model="firstName" />
-      <input type="text" placeholder="last Name" v-model="lastName" />
+      <!-- <input type="text" placeholder="last Name" v-model="lastName" /> -->
+      <input type="text" placeholder="last Name" ref="lastNameInput" />
+      <button @click="setLastName">Set Last Name</button>
     </div>
   </section>
 </template>
@@ -61,8 +63,12 @@ export default {
     function setFirstName(event) {
       firstName.value = event.target.value;
     }
-    function setLastName(event) {
-      lastName.value = event.target.value;
+    // function setLastName(event) {
+    //   lastName.value = event.target.value;
+    // }
+    const lastNameInput = ref(null);
+    function setLastName() {
+      lastName.value = lastNameInput.value.value;
     }
 
     return {
@@ -75,6 +81,7 @@ export default {
       setLastName,
       firstName,
       lastName,
+      lastNameInput,
     };
   },
   // data() {
