@@ -1,8 +1,8 @@
 import { ref } from 'vue';
 
 // 컴포지션 api 함수는 "use" 로 시작해야함
-export default function useAlert() {
-  const alertIsVisible = ref(false);
+export default function useAlert(startingVisibility = false) {
+  const alertIsVisible = ref(startingVisibility);
 
   function showAlert() {
     alertIsVisible.value = true;
